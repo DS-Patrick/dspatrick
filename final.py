@@ -20,6 +20,7 @@ import dash_bootstrap_components as dbc
 import plotly.graph_objs as go
 import plotly.express as px
 from dash.dash_table.Format import Group
+import pickle
 
 # set colors
 colors = {
@@ -50,7 +51,8 @@ server = app.server
 
 app.title = "Metacritic Score vs. User Score over the Years"
 
-game = pd.read_csv("/Users/patrick/Desktop/mc.csv")
+#game = pd.read_csv("/Users/patrick/Desktop/mc.csv")
+game = pd.read_pickle("mc.pkl")
 game_title = game.name.tolist()
 game_release = game.date.tolist()
 game_platform = game.platform.tolist()
@@ -61,6 +63,7 @@ userscore = "User Score:"
 
 df = pd.DataFrame(list(zip(game_title, game_release, game_platform, game_score, game_user)),
     columns = ["Title", "Release Date", "Platform", "Metacritic Score", "User Score"])
+
 
 df['Release Date'] = pd.to_datetime(df['Release Date'], format='%Y-%m-%d')
 df['Release Date'] = pd.DatetimeIndex(df['Release Date']).year
