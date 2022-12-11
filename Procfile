@@ -1,1 +1,1 @@
-web: gunicorn final.py:server
+web: gunicorn final:server
